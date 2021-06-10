@@ -1,0 +1,2 @@
+﻿1. dotnet ef migrations add "Initial" --startup-project employees-uploader-server  --project Data
+2. dotnet ef database update --startup-project employees-uploader-server  --project Data
