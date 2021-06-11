@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
@@ -11,7 +10,8 @@ namespace Data.Migrations
                 name: "Employees",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Fullname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Occupation = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     ImageName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)

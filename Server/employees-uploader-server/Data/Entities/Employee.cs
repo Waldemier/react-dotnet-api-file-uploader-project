@@ -8,7 +8,7 @@ namespace Data.Entities
     public class Employee
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [MaxLength(50)]
         public string Fullname { get; set; }
         [MaxLength(50)]

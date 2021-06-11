@@ -16,7 +16,7 @@ namespace IoC
         public static void ConfigureCors(this IServiceCollection services) =>
             services.AddCors(options => options.AddPolicy("ApplicationCorsPolicy", policy =>
             {
-                policy.WithOrigins("http://localhost:3000/");
+                policy.AllowAnyOrigin();
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
             }));
