@@ -30,7 +30,6 @@ table div.card:hover {
 
 table div.card:hover button.delete-button {
   visibility: visible;
-
 }
 
 table div.card-body {
@@ -47,11 +46,11 @@ table div.card .delete-button {
   visibility: hidden;
 }
 
-table tr td:not(:nth-child(3)){
+/* For all, but not the third element */
+table tr td:not(:nth-child(3)){ 
   border-right: 1px solid #00000020;
-  
 }
 
-table tr:not(:last-child) td{
+table tr:not(:last-child) td { 
   border-bottom: 1px solid #00000020;
 }

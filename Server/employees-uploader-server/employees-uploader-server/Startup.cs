@@ -54,8 +54,8 @@ namespace employees_uploader_server
             // Set the static folder.
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Images")),
-                RequestPath = "/Images"
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Images")), // Sets a static folder.
+                RequestPath = "/Images" // Request to access it.
             });
 
             app.UseHttpsRedirection();

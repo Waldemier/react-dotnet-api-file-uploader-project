@@ -29,15 +29,15 @@ namespace employees_uploader_server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {
-            return await this._context.Employees.Select(x => new Employee
+            return Ok(await this._context.Employees.Select(x => new Employee
             {
                 Id = x.Id,
                 Fullname = x.Fullname,
                 Occupation = x.Occupation,
                 ImageName = x.ImageName,
-                ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.ImageName) // Special prop for client side
+                ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.ImageName) // Special prop for client side img tag
             })
-            .ToListAsync();
+            .ToListAsync());
         }
 
         [HttpGet("{Id}")]
@@ -59,11 +59,9 @@ namespace employees_uploader_server.Controllers
                 return BadRequest();
             }
 
-            var employee = await this._context.Employees.FindAsync(Id);
-
             if(model.ImageFile != null)
             {
-                DeleteImage(employee.ImageName);
+                DeleteImage(model.ImageName);
                 var imageName = this.SaveImage(model.ImageFile);
                 model.ImageName = imageName.Result;
             }
@@ -129,9 +127,9 @@ namespace employees_uploader_server.Controllers
             var imageName = new String(Path.GetFileNameWithoutExtension(ImageFile.FileName).Take(10).ToArray()).Replace(" ", "-");
             imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(ImageFile.FileName);
             var imagePath = Path.Combine(this._hostEnvironment.ContentRootPath, "Images", imageName);
-            using(var fileStream = new FileStream(imagePath, FileMode.Create))
+            using(var fileStream = new FileStream(imagePath, FileMode.Create)) // Creates an empty file in the specified path. With specified extension.
             {
-                await ImageFile.CopyToAsync(fileStream);
+                await ImageFile.CopyToAsync(fileStream); // Copies the current file into the empty file (path), which created above in the using statement.
             }
             return imageName;
         }

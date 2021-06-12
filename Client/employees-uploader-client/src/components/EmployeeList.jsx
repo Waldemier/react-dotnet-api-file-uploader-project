@@ -9,7 +9,11 @@ function EmployeeList() {
 
     React.useEffect(() => {
         refreshEmployees();
-    }, []);
+    }, []); // renders only once
+
+    React.useEffect(() => {
+        console.log("RENDER");
+    }) // renders any time if the state was changed or browser was refreshed
 
     const API = (url = "https://localhost:5001/api/employees/") => {
         return {
@@ -30,7 +34,7 @@ function EmployeeList() {
                 .catch(error => console.error(error));
         }
         else {
-            API().update(formData.Id, formData)
+            API().update(formData.get("Id"), formData)
             .then(_ => {
                 onSuccessMethod();
                 refreshEmployees();
@@ -42,6 +46,7 @@ function EmployeeList() {
     const refreshEmployees = () => {
         API().fetchEmployees()
             .then(res => {
+                console.log(res);
                 setEmployees(res.data);
             })
             .catch(error => console.error(error));
@@ -53,7 +58,7 @@ function EmployeeList() {
     }
 
     const onDeleteHandler = (event, Id) => {
-        event.stopPropagation();
+        event.stopPropagation(); // To stop the execution of others events (onClicks) in the same place.
         if(window.confirm("Are you sure to delete this record?")) {
             API().delete(Id)
                 .then(_ => refreshEmployees())
@@ -85,7 +90,7 @@ function EmployeeList() {
                     </div>
                 </div>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-3">
                 <Employee 
                     addOrEdit={addOrEdit} 
                     recordForEdit={recordForEdit}

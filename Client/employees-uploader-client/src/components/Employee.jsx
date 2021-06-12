@@ -19,7 +19,6 @@ function Employee({ addOrEdit, recordForEdit }) {
     React.useEffect(() => {
         if(recordForEdit != null) {
             setValues(recordForEdit);
-            console.log(values)
         }
     }, [recordForEdit]);
 
@@ -37,7 +36,6 @@ function Employee({ addOrEdit, recordForEdit }) {
             var imageFile = event.target.files[0];
             const reader = new FileReader();
             reader.onload = x => {
-                console.log("Src", x.target.result)
                 setValues({
                     ...values,
                     imageFile,
@@ -59,6 +57,7 @@ function Employee({ addOrEdit, recordForEdit }) {
         let temp = {}
         temp.fullname = values.fullname == "" ? false : true;
         temp.imageSrc = values.imageSrc == defaultImageSrc ? false : true;
+        temp.occupation = values.occupation == "" ? false : true;
         setErrors(temp)
         return Object.values(temp).every(x => x === true);
     }
